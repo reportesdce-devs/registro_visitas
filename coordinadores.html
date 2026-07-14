@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Panel de coordinadores</title>
 <style>
 :root{--bg:#e9e9e9;--card:#fff;--line:#e7e7e7;--dark:#292929;--muted:#969696}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Arial,sans-serif;color:var(--dark)}
-.shell{max-width:1280px;margin:38px auto;padding:0 20px}.app{background:#f8f8f8;padding:28px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}
-.brand{display:flex;align-items:center;gap:14px}.logo{width:42px;height:42px;border-radius:9px;display:grid;place-items:center;background:var(--dark);color:#fff;font-size:.8rem;font-weight:800}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Segoe UI,Arial,sans-serif;color:var(--dark)}
+.shell{max-width:1280px;margin:38px auto;padding:0 20px}
+.app{background:#f8f8f8;padding:28px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:42px;height:42px;border-radius:9px;display:grid;place-items:center;background:var(--dark);color:#fff;font-size:.8rem;font-weight:800}
 .brand h1{margin:0;font-size:1.15rem}.brand p{margin:4px 0 0;color:var(--muted);font-size:.82rem}
-button{border:0;border-radius:10px;padding:11px 15px;font:inherit;font-weight:700;cursor:pointer}.dark{background:var(--dark);color:#fff}.soft{background:#ececec;color:#555}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}.card{background:var(--card);border:1px solid #ededed;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+button{border:0;border-radius:10px;padding:11px 15px;font:inherit;font-weight:700;cursor:pointer}
+.dark{background:var(--dark);color:#fff}.soft{background:#ececec;color:#555}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid #ededed;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
 .stat{padding:18px}.stat span{font-size:.84rem;color:#555}.stat strong{display:block;font-size:1.7rem;margin:8px 0}.stat small{color:var(--muted)}
-.main{padding:22px}.head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:16px}.head h2{margin:0 0 4px;font-size:1rem}.head p{margin:0;color:var(--muted);font-size:.83rem}
-.filters{display:grid;grid-template-columns:1.4fr .8fr .9fr auto;gap:10px;margin-bottom:16px}input,select{width:100%;border:1px solid var(--line);background:#fafafa;border-radius:10px;padding:11px 12px;font:inherit}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:1100px}
-th,td{padding:12px;border-bottom:1px solid #efefef;text-align:left;font-size:.85rem}th{background:#f7f7f7;color:#777;font-size:.78rem}.badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:#efefef;font-size:.72rem;font-weight:800}
-.actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}.empty{text-align:center;color:var(--muted);padding:28px}
-@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}}@media(max-width:600px){.stats,.filters{grid-template-columns:1fr}.app{padding:18px}}
+.main{padding:22px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:16px}
+.head h2{margin:0 0 4px;font-size:1rem}.head p{margin:0;color:var(--muted);font-size:.83rem}
+.filters{display:grid;grid-template-columns:1.4fr .8fr .9fr auto;gap:10px;margin-bottom:16px}
+input,select{width:100%;border:1px solid var(--line);background:#fafafa;border-radius:10px;padding:11px 12px;font:inherit}
+.error{display:none;margin-bottom:14px;padding:13px;border-radius:9px;background:#f8e8e8;color:#8b1f1f;border-left:4px solid #8b1f1f;font-weight:700}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:1100px}
+th,td{padding:12px;border-bottom:1px solid #efefef;text-align:left;font-size:.85rem}
+th{background:#f7f7f7;color:#777;font-size:.78rem}
+.badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:#efefef;font-size:.72rem;font-weight:800}
+.actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--muted);padding:28px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.stats,.filters{grid-template-columns:1fr}.app{padding:18px}}
 </style>
 </head>
-<body><div class="shell"><main class="app">
-<div class="top"><div class="brand"><div class="logo">DCE</div><div><h1>Panel de coordinadores</h1><p>Registro general de atención a alumnos</p></div></div><button class="dark" id="downloadTop">Descargar reporte</button></div>
+<body>
+<div class="shell">
+<main class="app">
+
+<div class="top">
+<div class="brand">
+<div class="logo">DCE</div>
+<div><h1>Panel de coordinadores</h1><p>Registro general de atención a alumnos</p></div>
+</div>
+<button class="dark" id="downloadTop">Descargar reporte</button>
+</div>
+
 <section class="stats">
 <article class="card stat"><span>Visitas totales</span><strong id="total">0</strong><small>Registros acumulados</small></article>
 <article class="card stat"><span>IQ</span><strong id="countIQ">0</strong><small>Visitas registradas</small></article>
@@ -29,19 +55,220 @@ th,td{padding:12px;border-bottom:1px solid #efefef;text-align:left;font-size:.85
 <article class="card stat"><span>IM</span><strong id="countIM">0</strong><small>Visitas registradas</small></article>
 <article class="card stat"><span>II</span><strong id="countII">0</strong><small>Visitas registradas</small></article>
 </section>
+
 <section class="card main">
-<div class="head"><div><h2>Alumnos registrados</h2><p id="countText">0 registros</p></div><button class="soft" id="refresh">Actualizar</button></div>
-<div class="filters"><input id="search" placeholder="Buscar por ID o nombre completo"><select id="career"><option value="">Todas las carreras</option><option>IQ</option><option>ISND</option><option>IM</option><option>II</option></select><input id="date" type="date"><button class="soft" id="clear">Limpiar filtros</button></div>
-<div class="table-wrap"><table><thead><tr><th>Folio</th><th>Fecha</th><th>Hora</th><th>ID</th><th>Nombre completo</th><th>Carrera</th><th>Sigla</th><th>Motivo</th></tr></thead><tbody id="body"></tbody></table></div>
-<div class="actions"><button class="dark" id="download">Descargar reporte CSV</button><button class="soft" id="summary">Descargar resumen por carrera</button></div>
-</section></main></div>
+<div class="head">
+<div><h2>Alumnos registrados</h2><p id="countText">0 registros</p></div>
+<button class="soft" id="refresh">Actualizar</button>
+</div>
+
+<div id="error" class="error"></div>
+
+<div class="filters">
+<input id="search" placeholder="Buscar por ID o nombre completo">
+<select id="career">
+<option value="">Todas las carreras</option>
+<option>IQ</option><option>ISND</option><option>IM</option><option>II</option>
+</select>
+<input id="date" type="date">
+<button class="soft" id="clear">Limpiar filtros</button>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Folio</th><th>Fecha</th><th>Hora</th><th>ID</th>
+<th>Nombre completo</th><th>Carrera</th><th>Sigla</th><th>Motivo</th>
+</tr>
+</thead>
+<tbody id="body"></tbody>
+</table>
+</div>
+
+<div class="actions">
+<button class="dark" id="download">Descargar reporte CSV</button>
+<button class="soft" id="summary">Descargar resumen por carrera</button>
+</div>
+</section>
+
+</main>
+</div>
+
 <script src="config.js"></script>
 <script>
-const $=id=>document.getElementById(id);let visits=[];
-async function load(){const r=await fetch(`${window.APP_CONFIG.API_URL}?action=list&t=${Date.now()}`,{cache:'no-store'});const j=await r.json();visits=j.data||[];render()}
-function filtered(){const q=$('search').value.trim().toLowerCase(),c=$('career').value,d=$('date').value;return visits.filter(v=>(!q||`${v.id} ${v.nombre} ${v.motivo}`.toLowerCase().includes(q))&&(!c||v.sigla===c)&&(!d||v.fechaISO===d))}
-function render(){const total=visits.length;$('total').textContent=total;['IQ','ISND','IM','II'].forEach(c=>$('count'+c).textContent=visits.filter(v=>v.sigla===c).length);const rows=filtered();$('countText').textContent=`${rows.length} registro${rows.length===1?'':'s'}`;$('body').innerHTML=rows.length?rows.map(v=>`<tr><td>${v.folio}</td><td>${v.fecha}</td><td>${v.hora}</td><td><strong>${v.id}</strong></td><td>${v.nombre}</td><td>${v.carrera}</td><td><span class="badge">${v.sigla}</span></td><td>${v.motivo}</td></tr>`).join(''):'<tr><td colspan="8" class="empty">No hay registros para mostrar.</td></tr>'}
-function csv(name,rows){const text=rows.map(r=>r.map(x=>`"${String(x??'').replaceAll('"','""')}"`).join(',')).join('\n');const b=new Blob(["\uFEFF"+text],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();URL.revokeObjectURL(a.href)}
-function detail(){const r=filtered();csv('reporte_visitas_alumnos.csv',[['Folio','Fecha','Hora','ID','Nombre completo','Carrera','Sigla','Motivo'],...r.map(v=>[v.folio,v.fecha,v.hora,v.id,v.nombre,v.carrera,v.sigla,v.motivo])])}
-['search','career','date'].forEach(id=>{$(id).oninput=render;$(id).onchange=render});$('clear').onclick=()=>{['search','career','date'].forEach(id=>$(id).value='');render()};$('refresh').onclick=load;$('download').onclick=detail;$('downloadTop').onclick=detail;$('summary').onclick=()=>{const r=[['Carrera','Visitas']];['IQ','ISND','IM','II'].forEach(c=>r.push([c,visits.filter(v=>v.sigla===c).length]));r.push(['TOTAL',visits.length]);csv('resumen_visitas_por_carrera.csv',r)};load();
-</script></body></html>
+const $=id=>document.getElementById(id);
+let visits=[];
+
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    const callback='jsonp_'+Date.now()+'_'+Math.floor(Math.random()*100000);
+    const script=document.createElement('script');
+    const timeout=setTimeout(()=>{
+      cleanup();
+      reject(new Error('No se pudo conectar con Google Sheets.'));
+    },15000);
+
+    function cleanup(){
+      clearTimeout(timeout);
+      delete window[callback];
+      script.remove();
+    }
+
+    window[callback]=data=>{
+      cleanup();
+      resolve(data);
+    };
+
+    script.onerror=()=>{
+      cleanup();
+      reject(new Error('No se pudo conectar con Google Sheets.'));
+    };
+
+    params.callback=callback;
+    script.src=window.APP_CONFIG.API_URL+'?'+new URLSearchParams(params).toString();
+    document.body.appendChild(script);
+  });
+}
+
+async function load(){
+  $('error').style.display='none';
+
+  try{
+    const result=await jsonp({
+      action:'list',
+      t:Date.now()
+    });
+
+    if(!result.ok){
+      throw new Error(result.error||'No se pudieron cargar los registros.');
+    }
+
+    visits=result.data||[];
+    render();
+
+  }catch(error){
+    visits=[];
+    $('error').textContent=error.message;
+    $('error').style.display='block';
+    render();
+  }
+}
+
+function filtered(){
+  const query=$('search').value.trim().toLowerCase();
+  const carrera=$('career').value;
+  const fecha=$('date').value;
+
+  return visits.filter(v=>
+    (!query||`${v.id} ${v.nombre} ${v.motivo}`.toLowerCase().includes(query)) &&
+    (!carrera||v.sigla===carrera) &&
+    (!fecha||v.fechaISO===fecha)
+  );
+}
+
+function escapeHtml(value){
+  return String(value??'')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
+}
+
+function render(){
+  $('total').textContent=visits.length;
+
+  ['IQ','ISND','IM','II'].forEach(codigo=>{
+    $('count'+codigo).textContent=
+      visits.filter(v=>v.sigla===codigo).length;
+  });
+
+  const rows=filtered();
+
+  $('countText').textContent=
+    `${rows.length} registro${rows.length===1?'':'s'}`;
+
+  $('body').innerHTML=rows.length
+    ?rows.map(v=>`
+      <tr>
+        <td>${escapeHtml(v.folio)}</td>
+        <td>${escapeHtml(v.fecha)}</td>
+        <td>${escapeHtml(v.hora)}</td>
+        <td><strong>${escapeHtml(v.id)}</strong></td>
+        <td>${escapeHtml(v.nombre)}</td>
+        <td>${escapeHtml(v.carrera)}</td>
+        <td><span class="badge">${escapeHtml(v.sigla)}</span></td>
+        <td>${escapeHtml(v.motivo)}</td>
+      </tr>
+    `).join('')
+    :'<tr><td colspan="8" class="empty">No hay registros para mostrar.</td></tr>';
+}
+
+function csv(name,rows){
+  const text=rows
+    .map(row=>row.map(value=>
+      `"${String(value??'').replaceAll('"','""')}"`
+    ).join(','))
+    .join('\n');
+
+  const blob=new Blob(
+    ["\uFEFF"+text],
+    {type:'text/csv;charset=utf-8;'}
+  );
+
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download=name;
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+function detail(){
+  const rows=filtered();
+
+  if(!rows.length){
+    alert('No hay registros para descargar.');
+    return;
+  }
+
+  csv('reporte_visitas_alumnos.csv',[
+    ['Folio','Fecha','Hora','ID','Nombre completo','Carrera','Sigla','Motivo'],
+    ...rows.map(v=>[
+      v.folio,v.fecha,v.hora,v.id,v.nombre,v.carrera,v.sigla,v.motivo
+    ])
+  ]);
+}
+
+['search','career','date'].forEach(id=>{
+  $(id).oninput=render;
+  $(id).onchange=render;
+});
+
+$('clear').onclick=()=>{
+  ['search','career','date'].forEach(id=>$(id).value='');
+  render();
+};
+
+$('refresh').onclick=load;
+$('download').onclick=detail;
+$('downloadTop').onclick=detail;
+
+$('summary').onclick=()=>{
+  const rows=[['Carrera','Visitas']];
+
+  ['IQ','ISND','IM','II'].forEach(codigo=>{
+    rows.push([
+      codigo,
+      visits.filter(v=>v.sigla===codigo).length
+    ]);
+  });
+
+  rows.push(['TOTAL',visits.length]);
+  csv('resumen_visitas_por_carrera.csv',rows);
+};
+
+load();
+</script>
+</body>
+</html>
