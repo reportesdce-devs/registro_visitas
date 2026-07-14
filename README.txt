@@ -1,27 +1,24 @@
-CORRECCIÓN FAILED TO FETCH
+NUEVA API CONFIGURADA
 
-La conexión directa con fetch fue sustituida por JSONP.
+URL:
+https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec
 
-1. En Google Apps Script:
-   - Sustituye todo el contenido de Code.gs por el archivo Code.gs incluido.
-   - Guarda.
-   - Implementar > Administrar implementaciones.
-   - Edita la implementación.
-   - Selecciona Nueva versión.
-   - Implementa.
+Reemplaza en GitHub:
+- index.html
+- coordinadores.html
+- config.js
 
-2. En GitHub:
-   - Sustituye index.html.
-   - Sustituye coordinadores.html.
-   - Sustituye config.js.
-   - Haz Commit changes.
+Prueba en incógnito:
+https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec?action=list
 
-URL configurada:
-https://script.google.com/macros/s/AKfycbzLXyHlY51bWfKXBNwSxwFyU92DTpRjHxyBYyeb-b-_1HefFagRdbWpRSlSJoG3Ge6gDA/exec
+Prueba JSONP:
+https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec?action=list&callback=prueba
 
-Direcciones:
-Alumno:
+La respuesta JSONP debe comenzar con:
+prueba({"ok":true,...
+
+Panel alumno:
 https://reportesdce-devs.github.io/registro_visitas/
 
-Coordinadores:
+Panel coordinadores:
 https://reportesdce-devs.github.io/registro_visitas/coordinadores.html
