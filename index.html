@@ -88,7 +88,7 @@ input{font-size:1.22rem}.field{margin-top:20px}
 <script src="vendor/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
-const supabase=(function(){
+const client=(function(){
   const box=document.getElementById('message');
   if(!window.supabase){
     box.textContent='No se pudo cargar la librería de conexión a la base de datos. Recarga la página.';
@@ -136,7 +136,7 @@ form.onreset=()=>{
 form.onsubmit=async event=>{
   event.preventDefault();
 
-  if(!supabase) return;
+  if(!client) return;
 
   if(!career.value){
     showError('Selecciona una carrera.');
@@ -155,7 +155,7 @@ form.onsubmit=async event=>{
   submit.textContent='Registrando...';
 
   try{
-    const { data: alumno, error: errAlumno }=await supabase
+    const { data: alumno, error: errAlumno }=await client
       .from('alumnos')
       .select('id,nombre,carrera')
       .eq('id', idValue)
@@ -164,7 +164,7 @@ form.onsubmit=async event=>{
     if(errAlumno) throw new Error('No se pudo validar el ID.');
     if(!alumno) throw new Error('ID no encontrado. Verifica tu matrícula.');
 
-    const { data: visita, error: errVisita }=await supabase
+    const { data: visita, error: errVisita }=await client
       .from('visitas')
       .insert({ alumno_id: idValue, sigla: career.value, motivo })
       .select()

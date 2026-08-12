@@ -116,7 +116,7 @@ function initClient(){
   }
 }
 
-const supabase=initClient();
+const client=initClient();
 let visits=[];
 let alumnosMap=new Map();
 
@@ -141,14 +141,14 @@ function normalizar(v){
 }
 
 async function load(){
-  if(!supabase) return;
+  if(!client) return;
 
   $('error').style.display='none';
 
   try{
     const [visitasRes, alumnosRes]=await Promise.all([
-      supabase.from('visitas').select('*').order('registrada_en',{ascending:false}),
-      supabase.from('alumnos').select('id,nombre,carrera')
+      client.from('visitas').select('*').order('registrada_en',{ascending:false}),
+      client.from('alumnos').select('id,nombre,carrera')
     ]);
 
     if(visitasRes.error) throw new Error(visitasRes.error.message||'No se pudieron cargar los registros.');
