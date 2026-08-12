@@ -17,7 +17,8 @@ h2{margin:0 0 6px;font-size:1.15rem}.desc{margin:0 0 24px;color:var(--muted);fon
 .qr-frame{display:inline-block;padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}
 #qr{display:grid;place-items:center;min-height:220px}
 #qr canvas{display:block;width:220px;height:220px;image-rendering:pixelated}
-.url{margin:20px auto 0;display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:10px 16px;border-radius:999px;background:#f3f3f3;border:1px solid var(--line);font-size:.8rem;font-weight:700;color:#555;word-break:break-all}
+.url{margin:20px auto 0;display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:10px 16px;border-radius:999px;background:#f3f3f3;border:1px solid var(--line);font-size:.8rem;font-weight:700;color:#555;word-break:break-all;text-decoration:none}
+.url:hover{text-decoration:underline}
 .hint{margin:18px 0 0;color:var(--muted);font-size:.8rem}
 .actions{display:flex;gap:10px;margin-top:24px}
 button{border:0;border-radius:11px;padding:14px 18px;font:inherit;font-weight:800;cursor:pointer}
@@ -26,6 +27,7 @@ button{border:0;border-radius:11px;padding:14px 18px;font:inherit;font-weight:80
 .note{margin-top:16px;color:var(--muted);font-size:.75rem;line-height:1.5}
 @media(max-width:600px){.app{padding:18px}.card{padding:22px}#qr canvas{width:180px;height:180px}}
 @media print{
+  @page{margin:1.2cm}
   body{background:#fff;padding:0;display:block}
   .app{background:#fff;padding:0;margin:0 auto}
   .actions,.note{display:none}
@@ -44,14 +46,14 @@ button{border:0;border-radius:11px;padding:14px 18px;font:inherit;font-weight:80
 <p class="desc">Este código es para uso en recepción.</p>
 
 <div class="qr-frame">
-<div id="qr" aria-label="Código QR de registro de visita"></div>
+<div id="qr" role="img" aria-label="Código QR de registro de visita"></div>
 </div>
 
-<div class="url" id="url"></div>
+<a class="url" id="url" target="_blank" rel="noopener"></a>
 <p class="hint" id="hint">Generando código…</p>
 
 <div class="actions">
-<button class="primary" onclick="window.print()">Imprimir QR</button>
+<button class="primary" id="printBtn">Imprimir QR</button>
 </div>
 
 <p class="note">Imprime esta página y colócala en el punto de recepción.
@@ -62,10 +64,13 @@ El estudiante escanea el código con su teléfono y registra su visita en segund
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
-  var url='https://registro-visitas.pages.dev/';
-  var box=document.getElementById('qr');
-  var hint=document.getElementById('hint');
-  document.getElementById('url').textContent=url;
+  const url='https://registro-visitas.pages.dev/';
+  const box=document.getElementById('qr');
+  const hint=document.getElementById('hint');
+  const link=document.getElementById('url');
+  link.href=url;
+  link.textContent=url;
+  document.getElementById('printBtn').onclick=()=>window.print();
 
   try{
     new QRCode(box,{
