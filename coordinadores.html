@@ -95,56 +95,48 @@ th{background:#f7f7f7;color:#777;font-size:.78rem}
 </main>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
+const supabase = window.supabase.createClient(APP_CONFIG.SUPABASE_URL, APP_CONFIG.SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let visits=[];
+let alumnosMap=new Map();
 
-function jsonp(params){
-  return new Promise((resolve,reject)=>{
-    const callback='jsonp_'+Date.now()+'_'+Math.floor(Math.random()*100000);
-    const script=document.createElement('script');
-    const timeout=setTimeout(()=>{
-      cleanup();
-      reject(new Error('No se pudo conectar con Google Sheets.'));
-    },15000);
+function pad2(n){
+  return String(n).padStart(2,'0');
+}
 
-    function cleanup(){
-      clearTimeout(timeout);
-      delete window[callback];
-      script.remove();
-    }
-
-    window[callback]=data=>{
-      cleanup();
-      resolve(data);
-    };
-
-    script.onerror=()=>{
-      cleanup();
-      reject(new Error('No se pudo conectar con Google Sheets.'));
-    };
-
-    params.callback=callback;
-    script.src=window.APP_CONFIG.API_URL+'?'+new URLSearchParams(params).toString();
-    document.body.appendChild(script);
-  });
+function normalizar(v){
+  const a=alumnosMap.get(v.alumno_id)||{};
+  const d=new Date(v.registrada_en);
+  return {
+    folio:`AT-${d.getFullYear()}-${String(v.id).padStart(5,'0')}`,
+    fecha:new Intl.DateTimeFormat('es-MX').format(d),
+    fechaISO:`${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`,
+    hora:new Intl.DateTimeFormat('es-MX',{hour:'2-digit',minute:'2-digit',hour12:false}).format(d),
+    id:v.alumno_id,
+    nombre:a.nombre||'',
+    carrera:a.carrera||'',
+    sigla:v.sigla,
+    motivo:v.motivo
+  };
 }
 
 async function load(){
   $('error').style.display='none';
 
   try{
-    const result=await jsonp({
-      action:'list',
-      t:Date.now()
-    });
+    const [visitasRes, alumnosRes]=await Promise.all([
+      supabase.from('visitas').select('*').order('registrada_en',{ascending:false}),
+      supabase.from('alumnos').select('id,nombre,carrera')
+    ]);
 
-    if(!result.ok){
-      throw new Error(result.error||'No se pudieron cargar los registros.');
-    }
+    if(visitasRes.error) throw new Error(visitasRes.error.message||'No se pudieron cargar los registros.');
+    if(alumnosRes.error) throw new Error(alumnosRes.error.message||'No se pudieron cargar los registros.');
 
-    visits=result.data||[];
+    alumnosMap=new Map(alumnosRes.data.map(a=>[a.id,a]));
+    visits=(visitasRes.data||[]).map(normalizar);
     render();
 
   }catch(error){

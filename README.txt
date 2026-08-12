@@ -1,24 +1,16 @@
-NUEVA API CONFIGURADA
+REGISTRO DE VISITAS - MIGRADO A SUPABASE
 
-URL:
+Proyecto Supabase:
+- URL: https://sfpdlrrbswmcyhexcznn.supabase.co
+- Tablas: public.alumnos, public.visitas (ver supabase/schema.sql)
+- La clave pública (publishable) vive en config.js
+- La clave secreta NO debe estar en el código del frontend
+
+Paneles (Cloudflare Pages):
+- Panel alumno:
+  https://registro-visitas.pages.dev/
+- Panel coordinadores:
+  https://registro-visitas.pages.dev/coordinadores.html
+
+Registro antiguo (Google Sheets) en:
 https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec
-
-Reemplaza en GitHub:
-- index.html
-- coordinadores.html
-- config.js
-
-Prueba en incógnito:
-https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec?action=list
-
-Prueba JSONP:
-https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec?action=list&callback=prueba
-
-La respuesta JSONP debe comenzar con:
-prueba({"ok":true,...
-
-Panel alumno:
-https://reportesdce-devs.github.io/registro_visitas/
-
-Panel coordinadores:
-https://reportesdce-devs.github.io/registro_visitas/coordinadores.html

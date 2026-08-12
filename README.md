@@ -1,10 +1,9 @@
-Paquete configurado con la API nueva:
+# registro_visitas
 
-https://script.google.com/macros/s/AKfycbzLXyHlY51bWfKXBNwSxwFyU92DTpRjHxyBYyeb-b-_1HefFagRdbWpRSlSJoG3Ge6gDA/exec
+Panel de registro de visitas de la División de Ciencias Exactas.
 
-Sube a la raíz del repositorio:
-- index.html
-- coordinadores.html
-- config.js
+- Panel alumno: https://registro-visitas.pages.dev/
+- Panel coordinadores: https://registro-visitas.pages.dev/coordinadores.html
 
-Después espera 1-2 minutos y recarga con Ctrl + F5.
+Backend: Supabase (tablas `public.alumnos` y `public.visitas`).
+Esquema en `supabase/schema.sql`. Configuración en `config.js`.

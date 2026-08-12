@@ -1,3 +1,4 @@
 window.APP_CONFIG = {
-  API_URL: "https://script.google.com/macros/s/AKfycbwB_SFMs9RHMXCTmk1Qa7mXOWWklmJVmbrMIVj_mqrR7EfuE_bHXZetGl7BZzcwmerJug/exec"
+  SUPABASE_URL: "https://sfpdlrrbswmcyhexcznn.supabase.co",
+  SUPABASE_KEY: "sb_publishable_TeO7AUuNKOZvAGuv7MsN4g_v2_YsDEe"
 };
