@@ -141,9 +141,9 @@ function normalizar(v){
 }
 
 async function load(){
-  $('error').style.display='none';
-
   if(!supabase) return;
+
+  $('error').style.display='none';
 
   try{
     const [visitasRes, alumnosRes]=await Promise.all([
