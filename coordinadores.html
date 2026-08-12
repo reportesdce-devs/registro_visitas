@@ -95,11 +95,28 @@ th{background:#f7f7f7;color:#777;font-size:.78rem}
 </main>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="vendor/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
-const supabase = window.supabase.createClient(APP_CONFIG.SUPABASE_URL, APP_CONFIG.SUPABASE_KEY);
 const $=id=>document.getElementById(id);
+
+function initClient(){
+  const box=$('error');
+  if(!window.supabase){
+    box.textContent='No se pudo cargar la librería de conexión a la base de datos. Recarga la página o abre el sitio en otro navegador.';
+    box.style.display='block';
+    return null;
+  }
+  try{
+    return window.supabase.createClient(APP_CONFIG.SUPABASE_URL, APP_CONFIG.SUPABASE_KEY);
+  }catch(error){
+    box.textContent='No se pudo iniciar la conexión con la base de datos: '+(error.message||error);
+    box.style.display='block';
+    return null;
+  }
+}
+
+const supabase=initClient();
 let visits=[];
 let alumnosMap=new Map();
 
@@ -125,6 +142,8 @@ function normalizar(v){
 
 async function load(){
   $('error').style.display='none';
+
+  if(!supabase) return;
 
   try{
     const [visitasRes, alumnosRes]=await Promise.all([
@@ -165,7 +184,7 @@ function escapeHtml(value){
     .replaceAll('<','&lt;')
     .replaceAll('>','&gt;')
     .replaceAll('"','&quot;')
-    .replaceAll("'","&#039;");
+    .replaceAll("'",'&#039;');
 }
 
 function render(){

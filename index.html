@@ -85,10 +85,24 @@ input{font-size:1.22rem}.field{margin-top:20px}
 </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="vendor/supabase.min.js"></script>
 <script src="config.js"></script>
 <script>
-const supabase = window.supabase.createClient(APP_CONFIG.SUPABASE_URL, APP_CONFIG.SUPABASE_KEY);
+const supabase=(function(){
+  const box=document.getElementById('message');
+  if(!window.supabase){
+    box.textContent='No se pudo cargar la librería de conexión a la base de datos. Recarga la página.';
+    box.style.display='block';
+    return null;
+  }
+  try{
+    return window.supabase.createClient(APP_CONFIG.SUPABASE_URL, APP_CONFIG.SUPABASE_KEY);
+  }catch(error){
+    box.textContent='No se pudo iniciar la conexión: '+(error.message||error);
+    box.style.display='block';
+    return null;
+  }
+})();
 const career = document.getElementById('career');
 const buttons = document.querySelectorAll('.career');
 const form = document.getElementById('form');
@@ -121,6 +135,8 @@ form.onreset=()=>{
 
 form.onsubmit=async event=>{
   event.preventDefault();
+
+  if(!supabase) return;
 
   if(!career.value){
     showError('Selecciona una carrera.');
