@@ -165,10 +165,11 @@ form.onsubmit=async event=>{
     if(!alumno) throw new Error('ID no encontrado. Verifica tu matrícula.');
 
     const { data: visita, error: errVisita }=await client
-      .from('visitas')
-      .insert({ alumno_id: idValue, sigla: career.value, motivo })
-      .select()
-      .single();
+      .rpc('registrar_visita', {
+        p_alumno_id: idValue,
+        p_sigla: career.value,
+        p_motivo: motivo
+      });
 
     if(errVisita) throw new Error(errVisita.message||'No se pudo registrar la visita.');
 
